@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AttendanceController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CheckInController;
 use App\Http\Controllers\API\DistributorController;
 use App\Http\Controllers\API\DocumentController;
 use App\Http\Controllers\API\OutletController;
@@ -50,7 +51,13 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('document', [DocumentController::class, 'addDocument']);
     Route::delete('document/{id}', [DocumentController::class, 'deleteDocument']);
 
+    Route::get('check-in/{id}', [CheckInController::class, 'getHistory']);
+    Route::get('check-in/user/{id}', [CheckInController::class, 'getHistoryId']);
+    Route::post('check-in/clock-in', [CheckInController::class, 'checkIn']);
+    Route::put('check-in/clock-out/{id}', [CheckInController::class, 'checkOut']);
+
     Route::get('attendance/{id}', [AttendanceController::class, 'getHistory']);
+    Route::get('attendance/user/{id}', [AttendanceController::class, 'getHistoryId']);
     Route::post('attendance/clock-in', [AttendanceController::class, 'clockIn']);
     Route::post('attendance/post-photo/{id}', [AttendanceController::class, 'postPhoto']);
     Route::put('attendance/clock-out/{id}', [AttendanceController::class, 'clockOut']);

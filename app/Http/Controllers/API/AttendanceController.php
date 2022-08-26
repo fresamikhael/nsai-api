@@ -27,6 +27,22 @@ class AttendanceController extends Controller
         );
     }
 
+    public function getHistoryId($id)
+    {
+        $data = Absent::with('item')->where('id', $id)->get();
+
+        return response()->json(
+            [
+                'meta' => [
+                    'code' => 200,
+                    'status' => 'success',
+                    'message' => 'Show Attentance from User',
+                ],
+                'data' => $data,
+            ]
+        );
+    }
+
     public function clockIn(Request $request)
     {
         $validate = Validator::make(
